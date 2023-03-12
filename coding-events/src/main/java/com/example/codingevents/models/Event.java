@@ -1,20 +1,51 @@
 package com.example.codingevents.models;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 public class Event {
 
     private int id;
     private static int nextId = 1;
+
+    @NotBlank
+    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
     private String name;
+
+    @Size(max = 500, message = "Description too long!")
     private String description;
 
+    @Email(message = "Invalid email. Try again.")
+    private String contactEmail;
 
-    public Event(String name, String description) {
+    private EventType type;
+
+    public Event(String name, String description, String contactEmail, EventType type) {
+        this();
         this.name = name;
         this.description = description;
-        this.id = nextId;
-        nextId++;
+        this.contactEmail = contactEmail;
+        this.type = type;
+    }
+
+    public EventType getType() {
+        return type;
+    }
+
+    public void setType(EventType type) {
+        this.type = type;
+    }
+
+    public Event() {}
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -25,12 +56,12 @@ public class Event {
         this.description = description;
     }
 
-    public String getName() {
-        return name;
+    public String getContactEmail() {
+        return contactEmail;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setContactEmail(String contactEmail) {
+        this.contactEmail = contactEmail;
     }
 
     public int getId() {
@@ -38,7 +69,7 @@ public class Event {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return name;
     }
 
